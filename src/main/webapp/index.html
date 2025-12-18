@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertisseur USD → IDR</title>
+    <style>
+    </style>
+    </head>
+    <body>
+        <h1>Convertisseur USD ↔ IDR</h1>
+        
+        <h2>USD vers IDR</h2>
+        <p>
+            <label for="usd">Montant (USD):</label>
+            <input type="number" id="usd" placeholder="100" min="0" step="0.01" oninput="convertirUsdToIdr()">
+        </p>
+        
+        <p>
+            <button onclick="convertirUsdToIdr()">Convertir USD → IDR</button>
+        </p>
+        
+        <div id="resultBox1" style="display:none; margin-top: 20px; padding: 10px; border: 1px solid #ccc;">
+            <p><strong>Montant USD:</strong> <span id="usdResult">0</span> $</p>
+            <p><strong>Équivalent IDR:</strong> <span id="idrResult">0</span> Rp</p>
+        </div>
+        
+        <hr style="margin: 30px 0;">
+        
+        <h2>IDR vers USD</h2>
+        <p>
+            <label for="idr">Montant (IDR):</label>
+            <input type="number" id="idr" placeholder="1000000" min="0" step="1" oninput="convertirIdrToUsd()">
+        </p>
+        
+        <p>
+            <button onclick="convertirIdrToUsd()">Convertir IDR → USD</button>
+        </p>
+        
+        <div id="resultBox2" style="display:none; margin-top: 20px; padding: 10px; border: 1px solid #ccc;">
+            <p><strong>Montant IDR:</strong> <span id="idrInput">0</span> Rp</p>
+            <p><strong>Équivalent USD:</strong> <span id="usdInput">0</span> $</p>
+        </div>
+        
+        <script>
+            const TAUX = 15800;
+            
+            function convertirUsdToIdr() {
+                const usd = parseFloat(document.getElementById('usd').value);
+                
+                if (!usd || usd <= 0) {
+                    document.getElementById('resultBox1').style.display = 'none';
+                    return;
+                }
+                
+                const idr = usd * TAUX;
+                
+                document.getElementById('usdResult').textContent = usd.toFixed(2);
+                document.getElementById('idrResult').textContent = Math.round(idr);
+                document.getElementById('resultBox1').style.display = 'block';
+            }
+            
+            function convertirIdrToUsd() {
+                const idr = parseFloat(document.getElementById('idr').value);
+                
+                if (!idr || idr <= 0) {
+                    document.getElementById('resultBox2').style.display = 'none';
+                    return;
+                }
+                
+                const usd = idr / TAUX;
+                
+                document.getElementById('idrInput').textContent = Math.round(idr);
+                document.getElementById('usdInput').textContent = usd.toFixed(2);
+                document.getElementById('resultBox2').style.display = 'block';
+            }
+        </script>
+    </body>
+</html>

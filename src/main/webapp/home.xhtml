@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+    <title>Accueil - Indonésie</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container p-5 shadow bg-white rounded" style="max-width: 600px;">
+        <div class="text-center mb-5">
+            <h1 class="text-danger">Accueil</h1>
+            <p class="text-muted">Découvrez nos fonctionnalités</p>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="card border-danger h-100 text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">💱 Convertisseur</h5>
+                        <p class="card-text">Convertissez USD en IDR facilement</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-danger h-100 text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">📍 Lieux</h5>
+                        <p class="card-text">Ajoutez vos lieux préférés</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-danger h-100 text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">ℹ️ À Propos</h5>
+                        <p class="card-text">En savoir plus sur nous</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h:form>
+            <div class="d-grid gap-2">
+                <h:commandButton value="Ajouter un Lieu" action="#{navigationController.ajouterLieu()}"
+                                 styleClass="btn btn-primary btn-lg"/>
+                <h:commandButton value="À Propos" action="#{navigationController.voirApropos()}"
+                                 styleClass="btn btn-info btn-lg"/>
+                <h:commandButton value="Convertisseur de Monnaie" action="home"
+                                 styleClass="btn btn-success btn-lg"/>
+                <h:commandButton value="Retour" action="#{navigationController.allerIndex()}"
+                                 styleClass="btn btn-secondary btn-lg"/>
+            </div>
+        </h:form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
