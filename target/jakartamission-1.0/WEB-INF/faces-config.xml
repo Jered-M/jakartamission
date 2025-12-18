@@ -71,5 +71,14 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    
+    <!-- Navigation vers modifier -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>modifier</from-outcome>
+            <to-view-id>/modifier.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 
 </faces-config>

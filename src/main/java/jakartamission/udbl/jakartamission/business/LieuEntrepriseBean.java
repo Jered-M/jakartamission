@@ -20,6 +20,7 @@ public class LieuEntrepriseBean {
     public void ajouterLieuEntreprise(String nom, String description, double latitude, double longitude) {
         Lieu lieu = new Lieu(nom, description, longitude, latitude);
         em.persist(lieu);
+        em.flush(); // Force l'exécution immédiate
     }
 
     public List<Lieu> listerTousLesLieux() {
@@ -30,6 +31,7 @@ public class LieuEntrepriseBean {
         Lieu lieu = em.find(Lieu.class, id);
         if (lieu != null) {
             em.remove(lieu);
+            em.flush(); // Force l'exécution immédiate
         }
     }
 
@@ -41,6 +43,7 @@ public class LieuEntrepriseBean {
             lieu.setLatitude(latitude);
             lieu.setLongitude(longitude);
             em.merge(lieu);
+            em.flush(); // Force l'exécution immédiate
         }
     }
 

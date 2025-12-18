@@ -30,39 +30,39 @@ public class Lieu {
         this.latitude = latitude;
     }
 
-    public int getId() { 
-        return id; 
+    public int getId() {
+        return id;
     }
 
-    public String getNom() { 
-        return nom; 
+    public String getNom() {
+        return nom;
     }
 
-    public void setNom(String nom) { 
-        this.nom = nom; 
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getDescription() { 
-        return description; 
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescription(String description) { 
-        this.description = description; 
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public double getLongitude() { 
-        return longitude; 
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setLongitude(double longitude) { 
-        this.longitude = longitude; 
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
-    public double getLatitude() { 
-        return latitude; 
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLatitude(double latitude) { 
-        this.latitude = latitude; 
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 }

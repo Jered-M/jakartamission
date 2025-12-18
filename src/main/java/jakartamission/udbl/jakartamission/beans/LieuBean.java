@@ -31,36 +31,36 @@ public class LieuBean implements Serializable {
     public LieuBean() {
     }
 
-    public String getNom() { 
-        return nom; 
+    public String getNom() {
+        return nom;
     }
 
-    public void setNom(String nom) { 
-        this.nom = nom; 
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getDescription() { 
-        return description; 
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescription(String description) { 
-        this.description = description; 
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public double getLongitude() { 
-        return longitude; 
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setLongitude(double longitude) { 
-        this.longitude = longitude; 
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
-    public double getLatitude() { 
-        return latitude; 
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLatitude(double latitude) { 
-        this.latitude = latitude; 
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
     public int getIdLieuSelectionnee() {
@@ -87,38 +87,47 @@ public class LieuBean implements Serializable {
         this.showMessage = showMessage;
     }
 
-    public List<Lieu> getLieux() { 
-        return lieuEntrepriseBean.listerTousLesLieux(); 
+    public List<Lieu> getLieux() {
+        return lieuEntrepriseBean.listerTousLesLieux();
     }
 
-    public String ajouterLieu() {
+    public void ajouterLieu() {
         if (nom != null && !nom.isEmpty()) {
-            lieuEntrepriseBean.ajouterLieuEntreprise(nom, description, latitude, longitude);
-            // Afficher le message de succès
-            message = "✅ Lieu '" + nom + "' ajouté avec succès!";
-            showMessage = true;
-            // Réinitialiser les champs
-            nom = "";
-            description = "";
-            latitude = 0;
-            longitude = 0;
+            try {
+                lieuEntrepriseBean.ajouterLieuEntreprise(nom, description, latitude, longitude);
+                System.out.println("✅ Lieu ajouté: " + nom + " (Lat: " + latitude + ", Long: " + longitude + ")");
+                // Réinitialiser complètement les champs
+                this.nom = null;
+                this.description = null;
+                this.latitude = 0.0;
+                this.longitude = 0.0;
+            } catch (Exception e) {
+                message = "❌ Erreur lors de l'ajout: " + e.getMessage();
+                showMessage = true;
+                System.out.println("❌ Erreur: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
-        return null; // Reste sur la même page
     }
 
-    public String modifierLieu() {
+    public void modifierLieu() {
         if (nom != null && !nom.isEmpty() && idLieuSelectionnee > 0) {
-            lieuEntrepriseBean.modifierLieu(idLieuSelectionnee, nom, description, latitude, longitude);
-            message = "✏️ Lieu modifié avec succès!";
-            showMessage = true;
-            // Réinitialiser
-            nom = "";
-            description = "";
-            latitude = 0;
-            longitude = 0;
-            idLieuSelectionnee = 0;
+            try {
+                lieuEntrepriseBean.modifierLieu(idLieuSelectionnee, nom, description, latitude, longitude);
+                System.out.println("✏️ Lieu modifié: " + nom);
+                // Réinitialiser
+                this.nom = null;
+                this.description = null;
+                this.latitude = 0.0;
+                this.longitude = 0.0;
+                this.idLieuSelectionnee = 0;
+            } catch (Exception e) {
+                message = "❌ Erreur lors de la modification: " + e.getMessage();
+                showMessage = true;
+                System.out.println("❌ Erreur: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
-        return null;
     }
 
     public String supprimerLieu(int id) {
@@ -137,6 +146,8 @@ public class LieuBean implements Serializable {
             this.latitude = lieu.getLatitude();
             this.longitude = lieu.getLongitude();
             showMessage = false;
+            System.out.println("📝 Lieu chargé pour édition: " + this.nom);
+            return "modifier"; // Redirection vers modifier.xhtml
         }
         return null;
     }

@@ -147,10 +147,11 @@
                     <div class="form-group">
                         <label for="latitude">Latitude <span class="required">*</span></label>
                         <h:inputText id="latitude" value="#{lieuBean.latitude}" styleClass="form-control" 
-                                    placeholder="Ex: -6.2088"
+                                    placeholder="Ex: -6.2088 (format décimal)"
                                     required="true"
-                                    requiredMessage="La latitude est requise"
-                                    converterMessage="La latitude doit être un nombre"/>
+                                    requiredMessage="La latitude est requise">
+                            <f:convertNumber type="number" pattern="0.0000" />
+                        </h:inputText>
                     </div>
                 </div>
                 
@@ -158,10 +159,11 @@
                     <div class="form-group">
                         <label for="longitude">Longitude <span class="required">*</span></label>
                         <h:inputText id="longitude" value="#{lieuBean.longitude}" styleClass="form-control" 
-                                    placeholder="Ex: 106.8456"
+                                    placeholder="Ex: 106.8456 (format décimal)"
                                     required="true"
-                                    requiredMessage="La longitude est requise"
-                                    converterMessage="La longitude doit être un nombre"/>
+                                    requiredMessage="La longitude est requise">
+                            <f:convertNumber type="number" pattern="0.0000" />
+                        </h:inputText>
                     </div>
                 </div>
             </div>
@@ -170,7 +172,9 @@
             <div class="button-group">
                 <h:commandButton value="✓ Enregistrer" 
                                 styleClass="btn-custom btn-submit"
-                                action="#{lieuBean.ajouterLieu()}"/>
+                                action="#{lieuBean.ajouterLieu()}"
+                                immediate="false"
+                                onclick="location.reload()"/>
                 <h:commandButton value="← Retour" 
                                 styleClass="btn-custom btn-reset"
                                 action="#{navigationController.allerAccueil()}"
