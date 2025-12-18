@@ -1,79 +1,57 @@
+index.xthml avec style
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html lang="fr">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convertisseur USD → IDR</title>
-    <style>
-    </style>
-    </head>
-    <body>
-        <h1>Convertisseur USD ↔ IDR</h1>
-        
-        <h2>USD vers IDR</h2>
-        <p>
-            <label for="usd">Montant (USD):</label>
-            <input type="number" id="usd" placeholder="100" min="0" step="0.01" oninput="convertirUsdToIdr()">
-        </p>
-        
-        <p>
-            <button onclick="convertirUsdToIdr()">Convertir USD → IDR</button>
-        </p>
-        
-        <div id="resultBox1" style="display:none; margin-top: 20px; padding: 10px; border: 1px solid #ccc;">
-            <p><strong>Montant USD:</strong> <span id="usdResult">0</span> $</p>
-            <p><strong>Équivalent IDR:</strong> <span id="idrResult">0</span> Rp</p>
-        </div>
-        
-        <hr style="margin: 30px 0;">
-        
-        <h2>IDR vers USD</h2>
-        <p>
-            <label for="idr">Montant (IDR):</label>
-            <input type="number" id="idr" placeholder="1000000" min="0" step="1" oninput="convertirIdrToUsd()">
-        </p>
-        
-        <p>
-            <button onclick="convertirIdrToUsd()">Convertir IDR → USD</button>
-        </p>
-        
-        <div id="resultBox2" style="display:none; margin-top: 20px; padding: 10px; border: 1px solid #ccc;">
-            <p><strong>Montant IDR:</strong> <span id="idrInput">0</span> Rp</p>
-            <p><strong>Équivalent USD:</strong> <span id="usdInput">0</span> $</p>
-        </div>
-        
-        <script>
-            const TAUX = 15800;
-            
-            function convertirUsdToIdr() {
-                const usd = parseFloat(document.getElementById('usd').value);
-                
-                if (!usd || usd <= 0) {
-                    document.getElementById('resultBox1').style.display = 'none';
-                    return;
-                }
-                
-                const idr = usd * TAUX;
-                
-                document.getElementById('usdResult').textContent = usd.toFixed(2);
-                document.getElementById('idrResult').textContent = Math.round(idr);
-                document.getElementById('resultBox1').style.display = 'block';
-            }
-            
-            function convertirIdrToUsd() {
-                const idr = parseFloat(document.getElementById('idr').value);
-                
-                if (!idr || idr <= 0) {
-                    document.getElementById('resultBox2').style.display = 'none';
-                    return;
-                }
-                
-                const usd = idr / TAUX;
-                
-                document.getElementById('idrInput').textContent = Math.round(idr);
-                document.getElementById('usdInput').textContent = usd.toFixed(2);
-                document.getElementById('resultBox2').style.display = 'block';
-            }
-        </script>
-    </body>
+    <title>Bienvenue en Indonésien</title>
+    
+    <!-- Intégration de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+    
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+
+    <div class="container text-center p-4 shadow bg-white rounded" style="max-width: 400px;">
+        <!-- Drapeau de l'Indonésie avec bordure -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" 
+             alt="Drapeau Indonésie" 
+             class="img-fluid mb-3 border border-1 border-secondary rounded" 
+             style="width: 150px;"/>
+
+        <h4 class="mb-2">Bienvenu en Indonesie</h4>
+
+        <h:form>
+          
+
+            <!-- Bouton Commencer -->
+            <h:commandButton value="Découvrir" action="home" 
+                             styleClass="btn btn-danger w-100"/>
+        </h:form>
+
+    
+    </div>
+
+    <!-- Bootstrap JS (nécessaire si vous utilisez des composants interactifs comme modals, tooltips, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
 </html>
+
+          
+
+            
+            
+        
+
+    
+    
+Créer une nouvelle page JSF a_propos.xhtml
+
+Puis dans la page home.xhtml,  ajoutez trois commandButton, un qui a comme valeur ajouter, un autre visiter et pour  finir à propos.
+
+exemple :
+  <h:form>
+                    <h:commandButton value="À propos" action="#{navigationController.voirApropos()}"/>
+                </h:form>

@@ -9,47 +9,132 @@
     <style>
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 40px;
+            max-width: 600px;
+            margin: auto;
+        }
+        .form-container h1 {
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .form-container .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 10px 12px;
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.2);
+        }
+        .button-group {
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .btn-custom {
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        .btn-reset {
+            background: #6c757d;
+            color: white;
+        }
+        .btn-reset:hover {
+            background: #5a6268;
+        }
+        .required {
+            color: #dc3545;
         }
     </style>
 </head>
-<body class="d-flex justify-content-center align-items-center min-vh-100 py-5">
-    <div class="container p-5 shadow bg-white rounded" style="max-width: 600px;">
-        <div class="text-center mb-5">
-            <h1 class="text-danger">Ajouter un Lieu</h1>
-            <p class="text-muted">Partagez vos lieux préférés en Indonésie</p>
-        </div>
-
+<body>
+    <div class="form-container">
+        <h1>📍 Ajouter un Lieu</h1>
+        <p class="subtitle">Partagez vos lieux préférés en Indonésie</p>
+        
         <h:form>
-            <div class="mb-3">
-                <label for="nom" class="form-label"><strong>Nom du Lieu :</strong></label>
+            <!-- Nom du Lieu -->
+            <div class="form-group mb-3">
+                <label for="nom">Nom du Lieu <span class="required">*</span></label>
                 <h:inputText id="nom" styleClass="form-control" 
-                            placeholder="Ex: Bali, Jakarta, Yogyakarta" required="true"/>
+                            placeholder="Ex: Bali, Jakarta, Yogyakarta"
+                            required="true"
+                            requiredMessage="Le nom du lieu est requis"/>
             </div>
-
-            <div class="mb-3">
-                <label for="description" class="form-label"><strong>Description :</strong></label>
+            
+            <!-- Description -->
+            <div class="form-group mb-3">
+                <label for="description">Description</label>
                 <h:inputTextarea id="description" styleClass="form-control" 
-                                rows="4" placeholder="Décrivez le lieu..."/>
+                                rows="4" 
+                                placeholder="Décrivez le lieu (faits intéressants, attractions, etc.)"/>
             </div>
-
+            
+            <!-- Latitude et Longitude -->
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="latitude" class="form-label"><strong>Latitude :</strong></label>
-                    <h:inputText id="latitude" styleClass="form-control" 
-                                placeholder="Ex: -6.2088" required="true"/>
+                    <div class="form-group">
+                        <label for="latitude">Latitude <span class="required">*</span></label>
+                        <h:inputText id="latitude" styleClass="form-control" 
+                                    placeholder="Ex: -6.2088"
+                                    required="true"
+                                    requiredMessage="La latitude est requise"/>
+                    </div>
                 </div>
-
+                
                 <div class="col-md-6 mb-3">
-                    <label for="longitude" class="form-label"><strong>Longitude :</strong></label>
-                    <h:inputText id="longitude" styleClass="form-control" 
-                                placeholder="Ex: 106.8456" required="true"/>
+                    <div class="form-group">
+                        <label for="longitude">Longitude <span class="required">*</span></label>
+                        <h:inputText id="longitude" styleClass="form-control" 
+                                    placeholder="Ex: 106.8456"
+                                    required="true"
+                                    requiredMessage="La longitude est requise"/>
+                    </div>
                 </div>
             </div>
-
-            <div class="d-grid gap-2 mt-4">
-                <h:commandButton value="Enregistrer Lieu" styleClass="btn btn-success btn-lg"/>
-                <h:commandButton value="Retour" action="#{navigationController.allerAccueil()}"
-                                 styleClass="btn btn-secondary btn-lg" immediate="true"/>
+            
+            <!-- Boutons -->
+            <div class="button-group">
+                <h:commandButton value="✓ Enregistrer" 
+                                styleClass="btn-custom btn-submit"
+                                action="#{navigationController.allerAccueil()}"/>
+                <h:commandButton value="← Retour" 
+                                styleClass="btn-custom btn-reset"
+                                action="#{navigationController.allerAccueil()}"
+                                immediate="true"/>
             </div>
         </h:form>
     </div>

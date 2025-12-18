@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+    <title>Visiter l'Indonésie</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .visiter-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 40px;
+            max-width: 800px;
+            margin: auto;
+        }
+        .visiter-container h1 {
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .visiter-container h3 {
+            color: #667eea;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        .visiter-container p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        .destination-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .destination-card strong {
+            color: #667eea;
+        }
+        .btn-custom {
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 100%;
+            margin-top: 30px;
+        }
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="visiter-container">
+        <h1>🗺️ Découvrir l'Indonésie</h1>
+        
+        <h3>Destinations Touristiques Populaires</h3>
+        
+        <div class="destination-card">
+            <strong>🏝️ Bali</strong><br/>
+            L'île des Dieux, célèbre pour ses plages paradisiaques, ses temples hindous et ses rizières en terrasse. 
+            Coordinate: -6.2088, 106.8456
+        </div>
+        
+        <div class="destination-card">
+            <strong>🏙️ Jakarta</strong><br/>
+            La capitale dynamique, centre économique et culturel avec ses gratte-ciel modernes et sa vie urbaine animée.
+            Coordinate: -6.2088, 106.8456
+        </div>
+        
+        <div class="destination-card">
+            <strong>🛕 Yogyakarta</strong><br/>
+            Célèbre pour le temple Borobudur et le Prambanan, centres spirituels et artistiques de l'Indonésie.
+            Coordinate: -7.7975, 110.3695
+        </div>
+        
+        <div class="destination-card">
+            <strong>🏞️ Lombok</strong><br/>
+            Une île vierge avec des plages de sable blanc, des montagnes volcaniques et un charme sauvage.
+            Coordinate: -8.6500, 116.3164
+        </div>
+        
+        <div class="destination-card">
+            <strong>🌴 Komodo</strong><br/>
+            Parc national abritant les célèbres dragons de Komodo et offrant des paysages naturels spectaculaires.
+            Coordinate: -8.3405, 119.4914
+        </div>
+        
+        <h3>Informations Pratiques</h3>
+        <p>
+            ✈️ <strong>Accès:</strong> L'Indonésie est accessible par voie aérienne depuis les principales villes du monde.<br/>
+            🗓️ <strong>Meilleure période:</strong> Avril à octobre (saison sèche)<br/>
+            💱 <strong>Devise:</strong> Roupie Indonésienne (IDR)<br/>
+            🌍 <strong>Population:</strong> Plus de 270 millions d'habitants
+        </p>
+
+        <h:form>
+            <h:commandButton value="← Retour à l'Accueil" 
+                            action="#{navigationController.allerAccueil()}"
+                            styleClass="btn-custom"/>
+        </h:form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

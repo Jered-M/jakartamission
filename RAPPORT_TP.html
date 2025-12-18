@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP - Gestion des Lieux</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .page {
+            page-break-after: always;
+            background: white;
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 900px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .page:last-child {
+            page-break-after: avoid;
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 32px;
+        }
+        
+        h2 {
+            color: #764ba2;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .section-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 24px;
+        }
+        
+        .content-preview {
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .feature-list li {
+            padding: 10px;
+            margin: 8px 0;
+            background: #e8eaf6;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+        
+        .button-preview {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 8px 8px 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+        }
+        
+        .btn-info {
+            background: #0dcaf0;
+            color: black;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .form-preview {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .card {
+            background: white;
+            border: 2px solid #dc3545;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .card-title {
+            font-weight: bold;
+            font-size: 18px;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #667eea;
+            color: #666;
+        }
+        
+        .page-number {
+            text-align: center;
+            margin-top: 30px;
+            color: #999;
+        }
+        
+        .tech-info {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .url-info {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .page {
+                page-break-after: always;
+                margin: 0;
+                padding: 20px;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- PAGE 1: HOME.XHTML -->
+<div class="page">
+    <h1>📄 Page 1: home.xhtml</h1>
+    
+    <div class="section-title">Page d'Accueil Principale</div>
+    
+    <div class="url-info">
+        URL: http://localhost:8080/jakartamission/home.xhtml
+    </div>
+    
+    <h2>Description</h2>
+    <div class="content-preview">
+        <p>La page home.xhtml est la page d'accueil principale de l'application après le login. Elle contient:</p>
+        <ul class="feature-list">
+            <li>✅ Titre "Accueil" en rouge</li>
+            <li>✅ Sous-titre "Découvrez nos fonctionnalités" en gris</li>
+            <li>✅ 3 cartes avec bordures rouges (💱 Convertisseur, 📍 Lieux, ℹ️ À Propos)</li>
+            <li>✅ 4 boutons d'action</li>
+            <li>✅ Fond dégradé (pourpre vers violet)</li>
+        </ul>
+    </div>
+    
+    <h2>Contenu Visuel</h2>
+    <div class="card">
+        <div class="card-title">💱 Convertisseur</div>
+        <p>Convertissez USD en IDR facilement</p>
+    </div>
+    
+    <div class="card">
+        <div class="card-title">📍 Lieux</div>
+        <p>Ajoutez vos lieux préférés</p>
+    </div>
+    
+    <div class="card">
+        <div class="card-title">ℹ️ À Propos</div>
+        <p>En savoir plus sur nous</p>
+    </div>
+    
+    <h2>Boutons d'Action</h2>
+    <div style="margin: 20px 0;">
+        <button class="button-preview btn-primary">Ajouter un Lieu</button>
+        <button class="button-preview btn-info">À Propos</button>
+        <button class="button-preview btn-primary" style="background: #28a745;">Convertisseur de Monnaie</button>
+        <button class="button-preview btn-secondary">Retour</button>
+    </div>
+    
+    <h2>Code JSF</h2>
+    <div class="content-preview" style="background: #f0f0f0; border-left-color: #333;">
+        <code style="font-family: monospace;">
+            &lt;h:commandButton value="Ajouter un Lieu" 
+                action="#{navigationController.ajouterLieu()}"
+                styleClass="btn btn-primary btn-lg"/&gt;
+        </code>
+    </div>
+    
+    <div class="tech-info">
+        <strong>🎨 Style appliqué:</strong> Bootstrap 5, Gradient de fond (667eea → 764ba2), Cartes avec bordures rouges
+    </div>
+    
+    <div class="page-number">--- Page 1 ---</div>
+</div>
+
+<!-- PAGE 2: LIEU.XHTML -->
+<div class="page">
+    <h1>📄 Page 2: lieu.xhtml</h1>
+    
+    <div class="section-title">Formulaire d'Ajout de Lieu</div>
+    
+    <div class="url-info">
+        URL: http://localhost:8080/jakartamission/lieu.xhtml
+    </div>
+    
+    <h2>Description</h2>
+    <div class="content-preview">
+        <p>La page lieu.xhtml permet aux utilisateurs d'ajouter un nouveau lieu en Indonésie. Elle contient:</p>
+        <ul class="feature-list">
+            <li>✅ Titre "Ajouter un Lieu" en rouge</li>
+            <li>✅ Sous-titre "Partagez vos lieux préférés en Indonésie"</li>
+            <li>✅ Formulaire JSF avec 4 champs</li>
+            <li>✅ Validation des champs requis</li>
+            <li>✅ 2 boutons (Enregistrer, Retour)</li>
+            <li>✅ Fond dégradé identique</li>
+        </ul>
+    </div>
+    
+    <h2>Formulaire</h2>
+    <div class="form-preview">
+        <div class="form-group">
+            <label class="form-label">Nom du Lieu :</label>
+            <input type="text" class="form-input" placeholder="Ex: Bali, Jakarta, Yogyakarta" disabled>
+            <small style="color: #d32f2f;">* Requis</small>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Description :</label>
+            <textarea class="form-input" rows="4" placeholder="Décrivez le lieu..." style="resize: vertical;" disabled></textarea>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+                <label class="form-label">Latitude :</label>
+                <input type="number" class="form-input" placeholder="Ex: -6.2088" step="0.0001" disabled>
+                <small style="color: #d32f2f;">* Requis</small>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Longitude :</label>
+                <input type="number" class="form-input" placeholder="Ex: 106.8456" step="0.0001" disabled>
+                <small style="color: #d32f2f;">* Requis</small>
+            </div>
+        </div>
+    </div>
+    
+    <h2>Boutons</h2>
+    <div style="margin: 20px 0;">
+        <button class="button-preview btn-primary" style="background: #28a745; width: 100%; margin-bottom: 10px;">Enregistrer Lieu</button>
+        <button class="button-preview btn-secondary" style="width: 100%;">Retour</button>
+    </div>
+    
+    <h2>Composants JSF Utilisés</h2>
+    <div class="content-preview" style="background: #f0f0f0; border-left-color: #333;">
+        <code style="font-family: monospace; display: block; margin: 5px 0;">
+            &lt;h:inputText id="nom" styleClass="form-control" 
+            placeholder="Ex: Bali, Jakarta, Yogyakarta" required="true"/&gt;
+        </code>
+        <code style="font-family: monospace; display: block; margin: 5px 0;">
+            &lt;h:inputTextarea id="description" styleClass="form-control" rows="4"/&gt;
+        </code>
+    </div>
+    
+    <div class="tech-info">
+        <strong>💾 Données collectées:</strong> Nom, Description, Latitude, Longitude (format décimal)
+    </div>
+    
+    <div class="page-number">--- Page 2 ---</div>
+</div>
+
+<!-- PAGE 3: A_PROPOS.XHTML -->
+<div class="page">
+    <h1>📄 Page 3: a_propos.xhtml</h1>
+    
+    <div class="section-title">Page À Propos</div>
+    
+    <div class="url-info">
+        URL: http://localhost:8080/jakartamission/a_propos.xhtml
+    </div>
+    
+    <h2>Description</h2>
+    <div class="content-preview">
+        <p>La page a_propos.xhtml fournit des informations sur l'application et l'Indonésie. Elle contient:</p>
+        <ul class="feature-list">
+            <li>✅ Titre "À Propos" en rouge</li>
+            <li>✅ Section "Bienvenue sur notre plateforme"</li>
+            <li>✅ Liste des services offerts</li>
+            <li>✅ Informations technologiques</li>
+            <li>✅ Contexte sur l'Indonésie</li>
+            <li>✅ Bouton "Retour à l'Accueil"</li>
+        </ul>
+    </div>
+    
+    <h2>Contenu</h2>
+    <div class="content-preview">
+        <h3>Bienvenue sur notre plateforme</h3>
+        <p>Nous sommes une application Jakarta EE dédiée à explorer et découvrir l'Indonésie.</p>
+    </div>
+    
+    <h2>Nos Services</h2>
+    <ul class="feature-list">
+        <li>💱 <strong>Convertisseur de Devises</strong> - Convertissez USD en Roupie Indonésienne</li>
+        <li>📍 <strong>Gestion des Lieux</strong> - Ajoutez et gérez vos lieux préférés</li>
+        <li>🌐 <strong>Navigation Fluide</strong> - Parcourez facilement toutes nos sections</li>
+    </ul>
+    
+    <h2>Technologie</h2>
+    <div class="tech-info">
+        <p><strong>Développé avec:</strong></p>
+        <ul style="margin-left: 20px;">
+            <li>Jakarta EE 10</li>
+            <li>JSF (JavaServer Faces)</li>
+            <li>Bootstrap 5</li>
+            <li>Maven</li>
+            <li>GlassFish 7</li>
+        </ul>
+    </div>
+    
+    <h2>L'Indonésie</h2>
+    <div class="content-preview">
+        <p>L'Indonésie est un archipel magnifique d'Asie du Sud-Est, composé de plus de 17 000 îles. Elle est riche en culture, biodiversité et traditions.</p>
+    </div>
+    
+    <h2>Bouton de Navigation</h2>
+    <div style="margin: 20px 0;">
+        <button class="button-preview btn-danger" style="width: 100%;">Retour à l'Accueil</button>
+    </div>
+    
+    <div class="footer">
+        <strong>TP - Gestion des Lieux avec Jakarta EE</strong><br>
+        Classe: Informatique - ESIS Salama<br>
+        Email: 22lm204@esisalama.org<br>
+        Date: 18 décembre 2025
+    </div>
+    
+    <div class="page-number">--- Page 3 ---</div>
+</div>
+
+</body>
+</html>
