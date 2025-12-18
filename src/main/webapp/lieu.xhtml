@@ -4,7 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <head>
-    <title>Ajouter un Lieu</title>
+    <title>Gestion des Lieux</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
     <style>
         body {
@@ -17,13 +17,19 @@
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             padding: 40px;
-            max-width: 600px;
-            margin: auto;
+            max-width: 900px;
+            margin: 20px auto;
         }
         .form-container h1 {
             color: #dc3545;
             text-align: center;
             margin-bottom: 10px;
+        }
+        .form-container h2 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 20px;
         }
         .form-container .subtitle {
             text-align: center;
@@ -78,18 +84,28 @@
         .required {
             color: #dc3545;
         }
+        .table-container {
+            overflow-x: auto;
+            margin-top: 30px;
+        }
+        .btn-action {
+            padding: 5px 10px;
+            margin: 2px;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
+    <!-- Formulaire d'ajout -->
     <div class="form-container">
-        <h1>📍 Ajouter un Lieu</h1>
-        <p class="subtitle">Partagez vos lieux préférés en Indonésie</p>
+        <h1>📍 Gestion des Lieux</h1>
+        <p class="subtitle">Ajoutez et gérez vos lieux préférés en Indonésie</p>
         
         <h:form>
             <!-- Nom du Lieu -->
             <div class="form-group mb-3">
                 <label for="nom">Nom du Lieu <span class="required">*</span></label>
-                <h:inputText id="nom" styleClass="form-control" 
+                <h:inputText id="nom" value="#{lieuBean.nom}" styleClass="form-control" 
                             placeholder="Ex: Bali, Jakarta, Yogyakarta"
                             required="true"
                             requiredMessage="Le nom du lieu est requis"/>
@@ -98,7 +114,7 @@
             <!-- Description -->
             <div class="form-group mb-3">
                 <label for="description">Description</label>
-                <h:inputTextarea id="description" styleClass="form-control" 
+                <h:inputTextarea id="description" value="#{lieuBean.description}" styleClass="form-control" 
                                 rows="4" 
                                 placeholder="Décrivez le lieu (faits intéressants, attractions, etc.)"/>
             </div>
@@ -108,20 +124,22 @@
                 <div class="col-md-6 mb-3">
                     <div class="form-group">
                         <label for="latitude">Latitude <span class="required">*</span></label>
-                        <h:inputText id="latitude" styleClass="form-control" 
+                        <h:inputText id="latitude" value="#{lieuBean.latitude}" styleClass="form-control" 
                                     placeholder="Ex: -6.2088"
                                     required="true"
-                                    requiredMessage="La latitude est requise"/>
+                                    requiredMessage="La latitude est requise"
+                                    converterMessage="La latitude doit être un nombre"/>
                     </div>
                 </div>
                 
                 <div class="col-md-6 mb-3">
                     <div class="form-group">
                         <label for="longitude">Longitude <span class="required">*</span></label>
-                        <h:inputText id="longitude" styleClass="form-control" 
+                        <h:inputText id="longitude" value="#{lieuBean.longitude}" styleClass="form-control" 
                                     placeholder="Ex: 106.8456"
                                     required="true"
-                                    requiredMessage="La longitude est requise"/>
+                                    requiredMessage="La longitude est requise"
+                                    converterMessage="La longitude doit être un nombre"/>
                     </div>
                 </div>
             </div>
@@ -130,7 +148,7 @@
             <div class="button-group">
                 <h:commandButton value="✓ Enregistrer" 
                                 styleClass="btn-custom btn-submit"
-                                action="#{navigationController.allerAccueil()}"/>
+                                action="#{lieuBean.ajouterLieu()}"/>
                 <h:commandButton value="← Retour" 
                                 styleClass="btn-custom btn-reset"
                                 action="#{navigationController.allerAccueil()}"
@@ -139,6 +157,52 @@
         </h:form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- Liste des lieux -->
+    <div class="form-container">
+        <h2>📍 Lieux Enregistrés</h2>
+        
+        <h:form>
+            <h:dataTable value="#{lieuBean.lieux}" var="lieu" 
+                        styleClass="table table-striped table-hover"
+                        rendered="#{not empty lieuBean.lieux}">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    #{lieu.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Nom</f:facet>
+                    #{lieu.nom}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                    #{lieu.description}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Latitude</f:facet>
+                    #{lieu.latitude}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Longitude</f:facet>
+                    #{lieu.longitude}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Actions</f:facet>
+                    <h:commandButton value="✏️ Modifier" 
+                                    styleClass="btn btn-sm btn-warning btn-action"
+                                    action="#{lieuBean.chargerLieuPourEdition(lieu.id)}"/>
+                    <h:commandButton value="🗑️ Supprimer" 
+                                    styleClass="btn btn-sm btn-danger btn-action"
+                                    action="#{lieuBean.supprimerLieu(lieu.id)}"
+                                    onclick="return confirm('Êtes-vous sûr ?');"/>
+                </h:column>
+            </h:dataTable>
+            
+            <div style="text-align: center; color: #999; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 6px;"
+                 rendered="#{empty lieuBean.lieux}">
+                <p style="margin: 0;">ℹ️ Aucun lieu enregistré pour le moment. Commencez par en ajouter un!</p>
+            </div>
+        </h:form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script></body>
 </html>
