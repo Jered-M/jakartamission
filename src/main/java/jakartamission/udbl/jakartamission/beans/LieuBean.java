@@ -22,6 +22,8 @@ public class LieuBean implements Serializable {
     private double longitude;
     private double latitude;
     private int idLieuSelectionnee;
+    private String message;
+    private boolean showMessage;
 
     @Inject
     private LieuEntrepriseBean lieuEntrepriseBean;
@@ -69,6 +71,22 @@ public class LieuBean implements Serializable {
         this.idLieuSelectionnee = idLieuSelectionnee;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public boolean isShowMessage() {
+        return showMessage;
+    }
+
+    public void setShowMessage(boolean showMessage) {
+        this.showMessage = showMessage;
+    }
+
     public List<Lieu> getLieux() { 
         return lieuEntrepriseBean.listerTousLesLieux(); 
     }
@@ -76,6 +94,9 @@ public class LieuBean implements Serializable {
     public String ajouterLieu() {
         if (nom != null && !nom.isEmpty()) {
             lieuEntrepriseBean.ajouterLieuEntreprise(nom, description, latitude, longitude);
+            // Afficher le message de succès
+            message = "✅ Lieu '" + nom + "' ajouté avec succès!";
+            showMessage = true;
             // Réinitialiser les champs
             nom = "";
             description = "";
@@ -88,6 +109,8 @@ public class LieuBean implements Serializable {
     public String modifierLieu() {
         if (nom != null && !nom.isEmpty() && idLieuSelectionnee > 0) {
             lieuEntrepriseBean.modifierLieu(idLieuSelectionnee, nom, description, latitude, longitude);
+            message = "✏️ Lieu modifié avec succès!";
+            showMessage = true;
             // Réinitialiser
             nom = "";
             description = "";
@@ -100,6 +123,8 @@ public class LieuBean implements Serializable {
 
     public String supprimerLieu(int id) {
         lieuEntrepriseBean.supprimerLieu(id);
+        message = "🗑️ Lieu supprimé avec succès!";
+        showMessage = true;
         return null;
     }
 
@@ -111,6 +136,7 @@ public class LieuBean implements Serializable {
             this.description = lieu.getDescription();
             this.latitude = lieu.getLatitude();
             this.longitude = lieu.getLongitude();
+            showMessage = false;
         }
         return null;
     }

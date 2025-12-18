@@ -93,6 +93,16 @@
             margin: 2px;
             font-size: 12px;
         }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -100,6 +110,18 @@
     <div class="form-container">
         <h1>📍 Gestion des Lieux</h1>
         <p class="subtitle">Ajoutez et gérez vos lieux préférés en Indonésie</p>
+        
+        <!-- Message de succès -->
+        <div style="display: #{lieuBean.showMessage ? 'block' : 'none'}; 
+                    background: #d4edda; 
+                    border: 2px solid #28a745; 
+                    color: #155724; 
+                    padding: 15px; 
+                    border-radius: 6px; 
+                    margin-bottom: 20px;
+                    animation: slideIn 0.5s ease-out;">
+            <strong>#{lieuBean.message}</strong>
+        </div>
         
         <h:form>
             <!-- Nom du Lieu -->
