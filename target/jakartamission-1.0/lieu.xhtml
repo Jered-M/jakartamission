@@ -218,8 +218,7 @@
                                     action="#{lieuBean.chargerLieuPourEdition(lieu.id)}"/>
                     <h:commandButton value="🗑️ Supprimer" 
                                     styleClass="btn btn-sm btn-danger btn-action"
-                                    action="#{lieuBean.supprimerLieu(lieu.id)}"
-                                    onclick="return confirm('Êtes-vous sûr ?');"/>
+                                    action="#{lieuBean.chargerLieuPourSuppression(lieu.id)}"/>
                 </h:column>
             </h:dataTable>
             

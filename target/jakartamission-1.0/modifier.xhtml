@@ -95,6 +95,27 @@
         <h1>✏️ Modifier un Lieu</h1>
         <p class="subtitle">Mettez à jour les informations du lieu</p>
         
+        <!-- Affichage des données actuelles -->
+        <div style="background: #e7f3ff; 
+                    border-left: 4px solid #2196F3; 
+                    padding: 15px; 
+                    margin-bottom: 20px; 
+                    border-radius: 5px;">
+            <p style="margin: 0; color: #1976D2;"><strong>📍 Lieu actuel à modifier:</strong></p>
+            <p style="margin: 5px 0; color: #333;">
+                <strong>Nom:</strong> #{lieuBean.nom != null ? lieuBean.nom : 'Non chargé'}
+            </p>
+            <p style="margin: 5px 0; color: #333;">
+                <strong>Description:</strong> #{lieuBean.description != null ? lieuBean.description : 'Aucune'}
+            </p>
+            <p style="margin: 5px 0; color: #333;">
+                <strong>Latitude:</strong> #{lieuBean.latitude}
+            </p>
+            <p style="margin: 5px 0; color: #333;">
+                <strong>Longitude:</strong> #{lieuBean.longitude}
+            </p>
+        </div>
+        
         <!-- Message de succès -->
         <div style="display: #{lieuBean.showMessage ? 'block' : 'none'}; 
                     background: #d4edda; 
@@ -156,11 +177,10 @@
             <div class="button-group">
                 <h:commandButton value="✓ Modifier" 
                                 styleClass="btn-custom btn-submit"
-                                action="#{lieuBean.modifierLieu()}"
-                                onclick="location.replace('#{request.contextPath}/lieu.xhtml')"/>
+                                action="#{lieuBean.modifierLieu()}"/>
                 <h:commandButton value="← Retour" 
                                 styleClass="btn-custom btn-reset"
-                                action="#{navigationController.allerAccueil()}"
+                                action="lieu"
                                 immediate="true"/>
             </div>
         </h:form>

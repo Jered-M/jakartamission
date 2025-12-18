@@ -1,6 +1,6 @@
 package jakartamission.udbl.jakartamission.beans;
 
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakartamission.udbl.jakartamission.business.LieuEntrepriseBean;
@@ -12,7 +12,7 @@ import java.util.List;
  * Bean managé pour gérer les lieux dans l'interface utilisateur
  */
 @Named(value = "lieuBean")
-@RequestScoped
+@SessionScoped
 public class LieuBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -110,17 +110,21 @@ public class LieuBean implements Serializable {
         }
     }
 
-    public void modifierLieu() {
+    public String modifierLieu() {
         if (nom != null && !nom.isEmpty() && idLieuSelectionnee > 0) {
             try {
+                String nomLieu = this.nom;
                 lieuEntrepriseBean.modifierLieu(idLieuSelectionnee, nom, description, latitude, longitude);
-                System.out.println("✏️ Lieu modifié: " + nom);
-                // Réinitialiser
+                System.out.println("✏️ Lieu modifié: " + nomLieu);
+                message = "✅ Le lieu '" + nomLieu + "' a été modifié avec succès!";
+                showMessage = true;
+                // Réinitialiser après affichage du message
                 this.nom = null;
                 this.description = null;
                 this.latitude = 0.0;
                 this.longitude = 0.0;
                 this.idLieuSelectionnee = 0;
+                return "lieuSuccess"; // Redirection vers lieu.xhtml avec message
             } catch (Exception e) {
                 message = "❌ Erreur lors de la modification: " + e.getMessage();
                 showMessage = true;
@@ -128,13 +132,50 @@ public class LieuBean implements Serializable {
                 e.printStackTrace();
             }
         }
+        return null;
+    }
+
+    public String chargerLieuPourSuppression(int id) {
+        Lieu lieu = lieuEntrepriseBean.trouverLieuParId(id);
+        if (lieu != null) {
+            this.idLieuSelectionnee = lieu.getId();
+            this.nom = lieu.getNom();
+            this.description = lieu.getDescription();
+            this.latitude = lieu.getLatitude();
+            this.longitude = lieu.getLongitude();
+            System.out.println("🗑️ Lieu chargé pour suppression: " + this.nom);
+            return "supprimer"; // Redirection vers supprimer.xhtml
+        }
+        return null;
+    }
+
+    public String confirmerSuppression() {
+        if (idLieuSelectionnee > 0) {
+            try {
+                String nomLieu = this.nom;
+                lieuEntrepriseBean.supprimerLieu(idLieuSelectionnee);
+                System.out.println("✓ Lieu supprimé: " + nomLieu);
+                message = "✅ Le lieu '" + nomLieu + "' a été supprimé avec succès!";
+                showMessage = true;
+                // Réinitialiser après affichage du message
+                this.nom = null;
+                this.description = null;
+                this.latitude = 0.0;
+                this.longitude = 0.0;
+                this.idLieuSelectionnee = 0;
+                return "lieuSuccess"; // Redirection vers lieu.xhtml avec message
+            } catch (Exception e) {
+                message = "❌ Erreur lors de la suppression: " + e.getMessage();
+                showMessage = true;
+                System.out.println("❌ Erreur lors de la suppression: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     public String supprimerLieu(int id) {
-        lieuEntrepriseBean.supprimerLieu(id);
-        message = "🗑️ Lieu supprimé avec succès!";
-        showMessage = true;
-        return null;
+        return chargerLieuPourSuppression(id);
     }
 
     public String chargerLieuPourEdition(int id) {

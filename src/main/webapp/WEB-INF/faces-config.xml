@@ -80,5 +80,23 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    
+    <!-- Navigation vers supprimer -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>supprimer</from-outcome>
+            <to-view-id>/supprimer.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- Navigation vers lieu avec message de succès -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>lieuSuccess</from-outcome>
+            <to-view-id>/lieu.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 
 </faces-config>
