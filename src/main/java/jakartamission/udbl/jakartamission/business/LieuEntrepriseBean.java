@@ -14,7 +14,7 @@ import java.util.List;
 @LocalBean
 public class LieuEntrepriseBean {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "jakartamissionPU")
     private EntityManager em;
 
     public void ajouterLieuEntreprise(String nom, String description, double latitude, double longitude) {

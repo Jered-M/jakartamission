@@ -1,2 +1,11 @@
+jakartamission\udbl\jakartamission\resources\CurrencyConverterResource.class
+jakartamission\udbl\jakartamission\beans\LieuBean.class
+jakartamission\udbl\jakartamission\business\UtilisateurEntrepriseBean.class
+jakartamission\udbl\jakartamission\entities\Lieu.class
+jakartamission\udbl\jakartamission\beans\NavigationBean.class
+jakartamission\udbl\jakartamission\business\LieuEntrepriseBean.class
 jakartamission\udbl\jakartamission\resources\JakartaEE10Resource.class
 jakartamission\udbl\jakartamission\JakartaRestConfiguration.class
+jakartamission\udbl\jakartamission\beans\UtilisateurBean.class
+jakartamission\udbl\jakartamission\converter\CurrencyServlet.class
+jakartamission\udbl\jakartamission\entities\User.class

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="jakarta.faces.core">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Créer un compte</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .signup-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            width: 100%;
+            max-width: 380px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .signup-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .signup-header h1 {
+            font-size: 22px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .signup-header p {
+            font-size: 12px;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .signup-body {
+            padding: 25px 20px;
+        }
+
+        /* Messages d'alerte */
+        .alert {
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: none;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        /* Groupes de formulaire */
+        .form-group {
+            margin-bottom: 14px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            color: #333;
+            font-size: 12px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+            font-family: inherit;
+        }
+
+        /* Messages d'erreur */
+        .error-message {
+            color: #dc3545;
+            font-size: 11px;
+            margin-top: 3px;
+            display: block;
+            animation: slideInError 0.3s ease-out;
+        }
+
+        @keyframes slideInError {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Boutons */
+        .btn-submit {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Lien retour */
+        .login-link {
+            text-align: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .login-link p {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 0;
+        }
+
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .login-link a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        /* Indicateur de force du mot de passe */
+        .password-strength {
+            font-size: 10px;
+            margin-top: 3px;
+            padding: 4px;
+            border-radius: 3px;
+            background-color: #f5f5f5;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .signup-container {
+                max-width: 100%;
+            }
+
+            .signup-header {
+                padding: 30px 20px;
+            }
+
+            .signup-header h1 {
+                font-size: 24px;
+            }
+
+            .signup-body {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Icon styling */
+        .input-icon {
+            position: relative;
+        }
+
+        .input-icon i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+        }
+
+        /* Toggle mot de passe */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #667eea;
+            font-size: 16px;
+            padding: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <!-- En-tête -->
+        <div class="signup-header">
+            <h1><i class="fas fa-user-plus"></i> Créer un compte</h1>
+            <p>Rejoignez notre communauté indonésienne</p>
+        </div>
+
+        <!-- Formulaire -->
+        <div class="signup-body">
+            <h:form>
+                <!-- Messages globaux -->
+                <h:messages globalOnly="true" 
+                            layout="table" 
+                            errorClass="alert alert-danger" 
+                            infoClass="alert alert-success"
+                            warningClass="alert alert-warning" />
+
+                <!-- Nom d'utilisateur -->
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i> Nom d'utilisateur
+                    </label>
+                    <h:inputText id="username" value="#{utilisateurBean.username}" 
+                                 placeholder="Entrez votre nom d'utilisateur (3-50 caractères)"/>
+                    <h:message for="username" styleClass="error-message" />
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Adresse email
+                    </label>
+                    <h:inputText id="email" value="#{utilisateurBean.email}"
+                                 placeholder="exemple@mail.com"/>
+                    <h:message for="email" styleClass="error-message" />
+                </div>
+
+                <!-- Mot de passe -->
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Mot de passe
+                    </label>
+                    <div class="password-wrapper">
+                        <h:inputSecret id="password" value="#{utilisateurBean.password}"
+                                       placeholder="Min. 1 majuscule, 1 chiffre, 1 caractère spécial"
+                                       style="padding-right: 35px;"/>
+                        <button type="button" class="password-toggle" onclick="togglePasswordVisibility(this)" title="Afficher/Masquer">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <h:message for="password" styleClass="error-message" />
+                    <div class="password-strength">
+                        <i class="fas fa-info-circle"></i> 
+                        Minimum : 1 majuscule, 1 chiffre, 1 caractère spécial (@, $, !, %, *, ?, &amp;)
+                    </div>
+                </div>
+
+                <!-- Confirmation mot de passe -->
+                <div class="form-group">
+                    <label for="confirmPassword">
+                        <i class="fas fa-lock"></i> Confirmer le mot de passe
+                    </label>
+                    <div class="password-wrapper">
+                        <h:inputSecret id="confirmPassword" value="#{utilisateurBean.confirmPassword}"
+                                       placeholder="Répétez votre mot de passe"
+                                       style="padding-right: 35px;"/>
+                        <button type="button" class="password-toggle" onclick="togglePasswordVisibility(this)" title="Afficher/Masquer">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <h:message for="confirmPassword" styleClass="error-message" />
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">
+                        <i class="fas fa-file-alt"></i> Biographie (optionnel)
+                    </label>
+                    <h:inputTextarea id="description" value="#{utilisateurBean.description}"
+                                     placeholder="Parlez un peu de vous..."/>
+                </div>
+
+                <!-- Bouton de soumission -->
+                <h:commandButton value="Créer mon compte" action="#{utilisateurBean.ajouterUtilisateur}"
+                                 styleClass="btn-submit" />
+
+                <!-- Lien retour -->
+                <div class="login-link">
+                    <p>Vous avez déjà un compte ? 
+                        <a href="index.xhtml">
+                            <i class="fas fa-arrow-left"></i> Retour à l'accueil
+                        </a>
+                    </p>
+                </div>
+            </h:form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script pour afficher/masquer le mot de passe -->
+    <script>
+        //<![CDATA[
+        function togglePasswordVisibility(btn) {
+            // Récupérer le champ de mot de passe adjacent
+            const passwordField = btn.previousElementSibling;
+            const icon = btn.querySelector('i');
+
+            if (passwordField && passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else if (passwordField) {
+                passwordField.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+        //]]>
+    </script>
+</body>
+</html>
