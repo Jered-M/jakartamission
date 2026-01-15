@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="https://jakarta.ee/ns/jsf/html"
+      xmlns:f="https://jakarta.ee/ns/jsf/core">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Connexion Test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .login-box {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            text-align: center;
+        }
+        .flag {
+            width: 80px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #f9f9ff;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-login:hover {
+            opacity: 0.9;
+        }
+        .signup-link {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .signup-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" 
+             alt="Drapeau Indonésie" 
+             class="flag"/>
+        <h2>Bienvenue</h2>
+        <p>Explorez l'Indonésie avec nous</p>
+        <hr/>
+
+        <h:form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <h:inputText id="email" 
+                             value="#{welcomeBean.email}"
+                             placeholder="Entrez votre email"
+                             styleClass="form-control"/>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <h:inputSecret id="password" 
+                               value="#{welcomeBean.password}"
+                               placeholder="Entrez votre mot de passe"
+                               styleClass="form-control"/>
+            </div>
+
+            <h:messages globalOnly="true" style="color: red; margin-bottom: 10px;"/>
+
+            <h:commandButton value="Se connecter" 
+                             action="#{welcomeBean.sAuthentifier()}"
+                             styleClass="btn-login"/>
+        </h:form>
+
+        <div class="signup-link">
+            <p>Pas encore de compte ? <a href="ajouter_utilisateur.xhtml">Créer un compte</a></p>
+        </div>
+    </div>
+</body>
+</html>

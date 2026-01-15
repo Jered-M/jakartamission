@@ -9,7 +9,32 @@
         </session-timeout>
     </session-config>
     
+    <!-- Configuration du filtre SessionControlFilter -->
+    <filter>
+        <filter-name>SessionControlFilter</filter-name>
+        <filter-class>jakartamission.udbl.jakartamission.business.SessionControlFilter</filter-class>
+    </filter>
+    
+    <!-- Mapping des URL vers le filtre SessionControlFilter -->
+    <filter-mapping>
+        <filter-name>SessionControlFilter</filter-name>
+        <url-pattern>/pages/*</url-pattern>
+    </filter-mapping>
+    
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>login.html</welcome-file>
     </welcome-file-list>
+
+    <!-- Configuration du servlet JSF -->
+    <servlet>
+        <servlet-name>FacesServlet</servlet-name>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- Mapping du servlet JSF -->
+    <servlet-mapping>
+        <servlet-name>FacesServlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
 </web-app>

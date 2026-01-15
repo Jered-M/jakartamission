@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="https://jakarta.ee/ns/jsf/html"
+      xmlns:f="https://jakarta.ee/ns/jsf/core">
 <head>
     <title>Accueil</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
@@ -52,11 +52,18 @@
         .btn-secondary-custom {
             background: #6c757d;
             color: white;
+            text-decoration: none;
         }
         .btn-secondary-custom:hover {
             background: #5a6268;
             color: white;
             text-decoration: none;
+        }
+        
+        a.btn-custom {
+            display: block;
+            text-decoration: none;
+            color: inherit;
         }
     </style>
 </head>
@@ -64,21 +71,65 @@
     <div class="home-container">
         <h1>🏠 Accueil</h1>
         
-        <h:form>
-            <div class="button-group">
-                <h:commandButton value="➕ Ajouter un Lieu" 
-                                action="#{navigationController.ajouterLieu()}"
-                                styleClass="btn-custom btn-primary-custom"/>
-                <h:commandButton value="🗺️ Visiter" 
-                                action="#{navigationController.visiter()}"
-                                styleClass="btn-custom btn-primary-custom"/>
-                <h:commandButton value="ℹ️ À propos" 
-                                action="#{navigationController.voirApropos()}"
-                                styleClass="btn-custom btn-primary-custom"/>
+        <!-- Section Profil Utilisateur -->
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #667eea; cursor: pointer;" onclick="window.location.href='pages/a_propos.xhtml'" title="Cliquer pour voir votre profil">
+            <h4 style="margin-bottom: 15px; color: #667eea;">👤 Mon Profil</h4>
+            <div id="profileContent" style="margin-top: 15px;">
+                <p style="margin: 8px 0;"><strong>Utilisateur:</strong> <span id="displayUsername" style="color: #667eea;">Chargement...</span></p>
+                <p style="margin: 8px 0;"><strong>Email:</strong> <span id="displayEmail" style="color: #667eea;">Chargement...</span></p>
+                <p style="margin-top: 15px; font-size: 12px; color: #999;">Cliquer pour modifier votre profil →</p>
             </div>
-        </h:form>
+            <div id="profileError" style="color: #dc3545; display: none; margin-top: 10px;"></div>
+        </div>
+        
+        <div class="button-group">
+            <a href="pages/lieu.xhtml" class="btn-custom btn-primary-custom">➕ Ajouter un Lieu</a>
+            <a href="pages/visiter.xhtml" class="btn-custom btn-primary-custom">🗺️ Visiter</a>
+            <a href="pages/a_propos.xhtml" class="btn-custom btn-primary-custom">ℹ️ À propos</a>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="logout" class="btn-custom btn-secondary-custom" style="display: inline-block;">🚪 Déconnexion</a>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Charger et afficher le profil utilisateur
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Home page chargée');
+            loadUserProfile();
+        });
+
+        function loadUserProfile() {
+            // Essayer via la servlet API
+            fetch('api/userinfo')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('displayUsername').textContent = data.username;
+                        document.getElementById('displayEmail').textContent = data.email;
+                        
+                        // Stocker aussi dans localStorage
+                        localStorage.setItem('username', data.username);
+                        localStorage.setItem('email', data.email);
+                        
+                        console.log('Profil charge: ' + data.username + ' / ' + data.email);
+                    } else {
+                        showProfileError(data.message || 'Impossible de charger le profil');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    showProfileError('Erreur de connexion: ' + error.message);
+                });
+        }
+
+        function showProfileError(message) {
+            document.getElementById('profileError').textContent = 'Erreur: ' + message;
+            document.getElementById('profileError').style.display = 'block';
+            document.getElementById('profileContent').style.display = 'none';
+        }
+    </script>
 </body>
 </html>

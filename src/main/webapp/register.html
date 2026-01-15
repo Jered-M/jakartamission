@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Créer un compte - Jakarta Mission</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .register-box {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 420px;
+            padding: 0;
+            overflow: hidden;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .register-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+        }
+
+        .register-header h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .register-header p {
+            font-size: 13px;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .register-body {
+            padding: 30px 25px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+            font-size: 13px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #f9f9ff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .password-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+            padding: 6px 10px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            border-left: 3px solid #667eea;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 11px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 10px;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .error-message {
+            color: #dc3545;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            display: none;
+            border-left: 4px solid #dc3545;
+        }
+
+        .success-message {
+            color: #155724;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            display: none;
+            border-left: 4px solid #28a745;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .login-link p {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 0;
+        }
+
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .register-box {
+                max-width: 100%;
+            }
+
+            .register-header {
+                padding: 25px 20px;
+            }
+
+            .register-header h2 {
+                font-size: 20px;
+            }
+
+            .register-body {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-box">
+        <!-- En-tête -->
+        <div class="register-header">
+            <h2>Créer un compte</h2>
+            <p>Rejoignez notre communauté indonésienne</p>
+        </div>
+
+        <!-- Formulaire -->
+        <div class="register-body">
+            <div id="errorMessage" class="error-message"></div>
+            <div id="successMessage" class="success-message"></div>
+
+            <form action="register" method="POST">
+                <!-- Nom d'utilisateur -->
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" 
+                           id="username" 
+                           name="username" 
+                           placeholder="3-50 caractères"
+                           required/>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Adresse email</label>
+                    <input type="email" 
+                           id="email" 
+                           name="email" 
+                           placeholder="exemple@mail.com"
+                           required/>
+                </div>
+
+                <!-- Mot de passe -->
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" 
+                           id="password" 
+                           name="password" 
+                           placeholder="Minimum 6 caractères"
+                           required/>
+                    <div class="password-info">
+                        📋 Minimum : 1 majuscule, 1 chiffre
+                    </div>
+                </div>
+
+                <!-- Confirmation mot de passe -->
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmer le mot de passe</label>
+                    <input type="password" 
+                           id="confirmPassword" 
+                           name="confirmPassword" 
+                           placeholder="Répétez votre mot de passe"
+                           required/>
+                </div>
+
+                <!-- Biographie -->
+                <div class="form-group">
+                    <label for="description">Biographie (optionnel)</label>
+                    <textarea id="description" 
+                              name="description" 
+                              placeholder="Parlez un peu de vous..."></textarea>
+                </div>
+
+                <!-- Bouton -->
+                <button type="submit" class="btn-register">Créer mon compte</button>
+            </form>
+
+            <!-- Retour à la connexion -->
+            <div class="login-link">
+                <p>Vous avez déjà un compte ? <a href="login.html">Retour à l'accueil</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showMessage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            const success = urlParams.get('success');
+            
+            if (error) {
+                const errorDiv = document.getElementById('errorMessage');
+                errorDiv.textContent = error;
+                errorDiv.style.display = 'block';
+            }
+            
+            if (success) {
+                const successDiv = document.getElementById('successMessage');
+                successDiv.textContent = success;
+                successDiv.style.display = 'block';
+            }
+        }
+        window.addEventListener('load', showMessage);
+    </script>
+</body>
+</html>

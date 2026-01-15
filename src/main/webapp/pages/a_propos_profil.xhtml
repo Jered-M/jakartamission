@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>À Propos &amp; Profil</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .container-main {
+            max-width: 1000px;
+            margin: auto;
+        }
+        .header-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 25px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-section h1 {
+            color: #dc3545;
+            margin: 0;
+            flex: 1;
+        }
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-header {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-logout {
+            background: #dc3545;
+            color: white;
+        }
+        .btn-logout:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+            color: white;
+        }
+        .btn-home {
+            background: #667eea;
+            color: white;
+        }
+        .btn-home:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            color: white;
+        }
+        .tabs-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .nav-tabs {
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .nav-link {
+            color: #666;
+            border: none;
+            border-radius: 0;
+            padding: 15px 20px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .nav-link:hover {
+            background: #e9ecef;
+            color: #667eea;
+        }
+        .nav-link.active {
+            color: #667eea;
+            background: white;
+            border-bottom: 3px solid #667eea;
+        }
+        .tab-content {
+            padding: 40px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .form-control, .form-control-static {
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 10px 12px;
+            width: 100%;
+            font-size: 14px;
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.2);
+        }
+        .form-control-static {
+            background-color: #f8f9fa;
+            color: #666;
+            border: 1px solid #e0e0e0;
+        }
+        .readonly-info {
+            background-color: #f8f9fa;
+            padding: 10px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            color: #555;
+        }
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: #1976D2;
+        }
+        .alert-success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .button-group {
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .btn-custom {
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        .btn-reset {
+            background: #6c757d;
+            color: white;
+        }
+        .btn-reset:hover {
+            background: #5a6268;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+        .about-content {
+            line-height: 1.8;
+            color: #555;
+        }
+        .about-content h3 {
+            color: #667eea;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .about-content p {
+            margin-bottom: 12px;
+        }
+        .required {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-main">
+        <!-- En-tête -->
+        <div class="header-section">
+            <h1>ℹ️ Mon Profil &amp; À Propos</h1>
+            <div class="header-buttons">
+                <a href="../logout" class="btn-header btn-logout">🚪 Déconnexion</a>
+                <a href="../home.xhtml" class="btn-header btn-home">🏠 Accueil</a>
+            </div>
+        </div>
+
+        <!-- Onglets -->
+        <div class="tabs-container">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile" type="button">
+                        👤 Mon Profil
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#password" type="button">
+                        🔐 Changer le Mot de Passe
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#about" type="button">
+                        ℹ️ À Propos
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <!-- Onglet 1: Profil -->
+                <div class="tab-pane fade show active" id="profile" role="tabpanel">
+                    <div class="profile-header">
+                        <div class="profile-icon">👤</div>
+                        <h2 style="color: #667eea;">Mon Profil</h2>
+                        <p style="color: #999;">Affichage de vos informations personnelles</p>
+                    </div>
+
+                    <div class="info-box">
+                        ℹ️ Les champs <strong>Nom d'Utilisateur</strong> et <strong>Email</strong> sont en lecture seule et ne peuvent pas être modifiés.
+                    </div>
+
+                    <form id="profileForm">
+                        <div class="form-group">
+                            <label for="username">Nom d'Utilisateur <span class="required">*</span></label>
+                            <div class="readonly-info" id="username">
+                                [Chargement...]
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email <span class="required">*</span></label>
+                            <div class="readonly-info" id="email">
+                                [Chargement...]
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" class="form-control" rows="4" placeholder="Décrivez-vous (optionnel)"></textarea>
+                        </div>
+
+                        <div class="button-group">
+                            <button type="button" class="btn-custom btn-submit" onclick="sauvegarderProfil()">
+                                ✓ Mettre à Jour
+                            </button>
+                            <a href="../home.xhtml" class="btn-custom btn-reset" style="text-align: center; text-decoration: none;">
+                                ← Retour
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Onglet 2: Changer le Mot de Passe -->
+                <div class="tab-pane fade" id="password" role="tabpanel">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div style="font-size: 48px; margin-bottom: 15px;">🔐</div>
+                        <h2 style="color: #667eea;">Changer le Mot de Passe</h2>
+                        <p style="color: #999;">Modifiez votre mot de passe en toute sécurité</p>
+                    </div>
+
+                    <div class="info-box">
+                        ℹ️ Pour votre sécurité, veuillez entrer votre mot de passe actuel avant de définir un nouveau.
+                    </div>
+
+                    <form id="passwordForm">
+                        <div id="passwordMessage"></div>
+
+                        <div class="form-group">
+                            <label for="currentPassword">Mot de Passe Actuel <span class="required">*</span></label>
+                            <input type="password" id="currentPassword" class="form-control" required placeholder="Entrez votre mot de passe actuel"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newPassword">Nouveau Mot de Passe <span class="required">*</span></label>
+                            <input type="password" id="newPassword" class="form-control" required placeholder="Entrez votre nouveau mot de passe"/>
+                            <small style="color: #999;">Minimum 8 caractères, avec majuscules, minuscules et chiffres</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirmer le Nouveau Mot de Passe <span class="required">*</span></label>
+                            <input type="password" id="confirmPassword" class="form-control" required placeholder="Confirmez votre nouveau mot de passe"/>
+                        </div>
+
+                        <div class="button-group">
+                            <button type="button" class="btn-custom btn-submit" onclick="changerMotDePasse()">
+                                ✓ Changer le Mot de Passe
+                            </button>
+                            <a href="../home.xhtml" class="btn-custom btn-reset" style="text-align: center; text-decoration: none;">
+                                ← Retour
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Onglet 3: À Propos -->
+                <div class="tab-pane fade" id="about" role="tabpanel">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div style="font-size: 48px; margin-bottom: 15px;">🌴</div>
+                        <h2 style="color: #667eea;">À Propos de l'Application</h2>
+                    </div>
+
+                    <div class="about-content">
+                        <h3>Bienvenue sur notre plateforme</h3>
+                        <p>
+                            Nous sommes une application Jakarta EE dédiée à explorer et découvrir l'Indonésie.
+                            Notre mission est de fournir une plateforme intuitive et conviviale pour les amateurs de voyage.
+                        </p>
+
+                        <h3>Nos Services</h3>
+                        <p>
+                            ✔️ <strong>Authentification Sécurisée</strong> - Gérez votre compte en toute sécurité<br/>
+                            ✔️ <strong>Gestion des Lieux</strong> - Ajoutez et gérez vos lieux préférés<br/>
+                            ✔️ <strong>Navigation Fluide</strong> - Parcourez facilement toutes nos sections<br/>
+                            ✔️ <strong>Profil Utilisateur</strong> - Personnalisez vos informations
+                        </p>
+
+                        <h3>Technologie</h3>
+                        <p>
+                            Cette application est développée avec <strong>Jakarta EE 10</strong>, 
+                            <strong>HTML5 &amp; Servlets</strong> et <strong>Bootstrap 5</strong> 
+                            pour une expérience utilisateur optimale. Elle utilise aussi 
+                            <strong>JPA</strong> pour la gestion des données et <strong>BCrypt</strong> 
+                            pour le hachage sécurisé des mots de passe.
+                        </p>
+
+                        <h3>L'Indonésie</h3>
+                        <p>
+                            L'Indonésie est un archipel magnifique d'Asie du Sud-Est, composé de plus de 17 000 îles.
+                            Elle est riche en culture, biodiversité et traditions. Des temples majestueux de Bali 
+                            aux montagnes volcaniques de Java, l'Indonésie offre des expériences inoubliables.
+                        </p>
+
+                        <h3>Contactez-Nous</h3>
+                        <p>
+                            Pour toute question ou suggestion, n'hésitez pas à nous contacter.<br/>
+                            Email: <strong>info@jakartamission.com</strong><br/>
+                            Tél: <strong>+62 XXX XXX XXXX</strong>
+                        </p>
+
+                        <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 6px;">
+                            <p style="margin: 0; color: #666;">
+                                <strong>Version:</strong> 1.0 | 
+                                <strong>Année:</strong> 2026 | 
+                                <strong>Statut:</strong> Production
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="button-group" style="margin-top: 40px;">
+                        <a href="../home.xhtml" class="btn-custom btn-reset" style="grid-column: 1 / -1; text-align: center; text-decoration: none;">
+                            ← Retour à l'Accueil
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Charger les données utilisateur au démarrage
+        document.addEventListener('DOMContentLoaded', function() {
+            chargerDonneesUtilisateur();
+        });
+
+        function chargerDonneesUtilisateur() {
+            fetch('../api/profile', {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('username').textContent = data.username;
+                    document.getElementById('email').textContent = data.email;
+                    document.getElementById('description').value = data.description || '';
+                } else {
+                    alert('Erreur: ' + (data.message || 'Impossible de charger les données'));
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                alert('Erreur de connexion');
+            });
+        }
+
+        function sauvegarderProfil() {
+            const description = document.getElementById('description').value;
+            
+            fetch('../api/profile/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    description: description
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('✓ Profil mis à jour avec succès');
+                } else {
+                    alert('❌ Erreur: ' + (data.message || 'Impossible de mettre à jour le profil'));
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                alert('❌ Erreur de connexion');
+            });
+        }
+
+        function changerMotDePasse() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const messageDiv = document.getElementById('passwordMessage');
+
+            // Vérifications
+            if (!currentPassword) {
+                afficherMessage('❌ Le mot de passe actuel est requis', false, messageDiv);
+                return;
+            }
+
+            if (!newPassword) {
+                afficherMessage('❌ Le nouveau mot de passe est requis', false, messageDiv);
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                afficherMessage('❌ Le nouveau mot de passe doit contenir au moins 8 caractères', false, messageDiv);
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                afficherMessage('❌ Les mots de passe ne correspondent pas', false, messageDiv);
+                return;
+            }
+
+            fetch('../api/profile/password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    currentPassword: currentPassword,
+                    newPassword: newPassword,
+                    confirmPassword: confirmPassword
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    afficherMessage('✅ Mot de passe changé avec succès', true, messageDiv);
+                    document.getElementById('passwordForm').reset();
+                    setTimeout(() => {
+                        messageDiv.innerHTML = '';
+                    }, 5000);
+                } else {
+                    afficherMessage('❌ Erreur: ' + (data.message || 'Impossible de changer le mot de passe'), false, messageDiv);
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                afficherMessage('❌ Erreur de connexion', false, messageDiv);
+            });
+        }
+
+        function afficherMessage(message, success, element) {
+            element.className = success ? 'alert-success' : 'alert alert-danger';
+            element.innerHTML = '<strong>' + message + '</strong>';
+            element.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
