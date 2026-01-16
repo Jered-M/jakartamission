@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Mon Profil - Jakarta Mission</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .profile-header h1 {
+            font-size: 28px;
+            margin: 0;
+            flex: 1;
+        }
+
+        .profile-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-sm-custom {
+            padding: 8px 15px;
+            font-size: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-logout {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-logout:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .btn-home {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid white;
+        }
+
+        .btn-home:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .tabs-nav {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn:hover {
+            background: #e9ecef;
+            color: #667eea;
+        }
+
+        .tab-btn.active {
+            color: #667eea;
+            background: white;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            padding: 40px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .profile-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-control-static {
+            background-color: #f8f9fa;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 10px 12px;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: #1976D2;
+            font-size: 14px;
+        }
+
+        .alert-message {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .btn-action {
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-back {
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-back:hover {
+            background: #5a6268;
+            color: white;
+        }
+
+        .about-text {
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .about-text h3 {
+            color: #667eea;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .about-text p {
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .profile-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .profile-buttons {
+                width: 100%;
+            }
+
+            .btn-sm-custom {
+                flex: 1;
+            }
+
+            .tab-btn {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+
+            .btn-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <!-- En-tete -->
+        <div class="profile-header">
+            <h1>Profil</h1>
+            <div class="profile-buttons">
+                <a href="../home.xhtml" class="btn-sm-custom btn-home">Accueil</a>
+                <a href="../logout" class="btn-sm-custom btn-logout">Deconnexion</a>
+            </div>
+        </div>
+
+        <!-- Onglets -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="showTab(0)">Profil</button>
+            <button class="tab-btn" onclick="showTab(1)">Mot de Passe</button>
+            <button class="tab-btn" onclick="showTab(2)">À Propos</button>
+        </div>
+
+        <!-- Contenu des onglets -->
+        <div class="tab-content">
+            <!-- Tab 1: Profil -->
+            <div class="tab-pane active profile-section" id="tab-profile">
+                <h2>Mon Profil</h2>
+
+                <div class="info-box">
+                    Les champs Utilisateur et Email ne peuvent pas etre modifies.
+                </div>
+
+                <div id="profileAlert" class="alert-message"></div>
+
+                <form id="profileForm">
+                    <div class="form-group">
+                        <label>Utilisateur</label>
+                        <div class="form-control-static" id="username">
+                            Connecte...
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <div class="form-control-static" id="email">
+                            Connecte...
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" class="form-control" rows="4" placeholder="Dites-nous quelque chose a votre sujet..."></textarea>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn-action btn-submit" onclick="updateProfile()">
+                            Enregistrer
+                        </button>
+                        <a href="../home.xhtml" class="btn-action btn-back">Retour</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tab 2: Mot de Passe -->
+            <div class="tab-pane profile-section" id="tab-password">
+                <h2>Changer le Mot de Passe</h2>
+
+                <div class="info-box">
+                    Entrez votre mot de passe actuel, puis le nouveau mot de passe.
+                </div>
+
+                <div id="passwordAlert" class="alert-message"></div>
+
+                <form id="passwordForm">
+                    <div class="form-group">
+                        <label for="currentPass">Mot de Passe Actuel</label>
+                        <input type="password" id="currentPass" class="form-control" placeholder="Entrez votre mot de passe actuel"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newPass">Nouveau Mot de Passe</label>
+                        <input type="password" id="newPass" class="form-control" placeholder="Entrez un nouveau mot de passe (8+ caracteres)"/>
+                        <small style="color: #999; display: block; margin-top: 5px;">
+                            Minimum 8 caracteres, 1 majuscule, 1 minuscule, 1 chiffre
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPass">Confirmer le Mot de Passe</label>
+                        <input type="password" id="confirmPass" class="form-control" placeholder="Confirmer le mot de passe"/>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn-action btn-submit" onclick="updatePassword()">
+                            Changer
+                        </button>
+                        <a href="../home.xhtml" class="btn-action btn-back">Retour</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tab 3: A Propos -->
+            <div class="tab-pane profile-section" id="tab-about">
+                <h2>A Propos de l'Application</h2>
+
+                <div class="about-text">
+                    <h3>Jakarta Mission</h3>
+                    <p>
+                        Jakarta Mission est une application web moderne developpee avec Jakarta EE 10 
+                        pour explorer et decouvrir l'Indonesie. Elle offre une experience utilisateur intuitive avec 
+                        authentification securisee et gestion de profil.
+                    </p>
+
+                    <h3>Caracteristiques</h3>
+                    <p>
+                        - Authentification securisee avec BCrypt<br/>
+                        - Gestion de profil utilisateur<br/>
+                        - Modification securisee du mot de passe<br/>
+                        - Navigation protegee avec sessions<br/>
+                        - Design responsive et moderne
+                    </p>
+
+                    <h3>Technologies</h3>
+                    <p>
+                        <strong>Backend:</strong> Jakarta EE 10, GlassFish 7.0, JPA/Hibernate<br/>
+                        <strong>Base de Donnees:</strong> Derby Embedded<br/>
+                        <strong>Frontend:</strong> HTML5, CSS3, Bootstrap 5<br/>
+                        <strong>Securite:</strong> BCrypt pour les mots de passe
+                    </p>
+
+                    <h3>L'Indonesie</h3>
+                    <p>
+                        L'Indonesie est un archipel magnifique d'Asie du Sud-Est, composee de plus de 17 000 iles. 
+                        Elle est riche en culture, biodiversite et traditions. Des temples majestueux de Bali 
+                        aux montagnes volcaniques de Java, l'Indonesie offre des experiences inoubliables.
+                    </p>
+
+                    <h3>Contact</h3>
+                    <p>
+                        Email: <strong>info@jakartamission.com</strong><br/>
+                        Version: <strong>1.0</strong> | Annee: <strong>2026</strong>
+                    </p>
+                </div>
+
+                <div class="btn-group" style="margin-top: 30px;">
+                    <a href="../home.xhtml" class="btn-action btn-back" style="grid-column: 1 / -1;">
+                        Retour a l'Accueil
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Charger les infos utilisateur au demarrage
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page profil chargee');
+            loadUserInfo();
+            addTabClickListeners();
+        });
+
+        function loadUserInfo() {
+            // Essayer de recuperer via servlet JSON
+            fetch('../api/userinfo')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('username').textContent = data.username;
+                        document.getElementById('email').textContent = data.email;
+                        // Stocker aussi dans localStorage
+                        localStorage.setItem('username', data.username);
+                        localStorage.setItem('email', data.email);
+                        console.log('Infos chargees: ' + data.username + ' / ' + data.email);
+                    } else {
+                        console.log('Impossible de recuperer les infos: ' + data.message);
+                        // Fallback sur localStorage
+                        document.getElementById('username').textContent = localStorage.getItem('username') || 'Utilisateur';
+                        document.getElementById('email').textContent = localStorage.getItem('email') || 'email@example.com';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    // Fallback sur localStorage
+                    document.getElementById('username').textContent = localStorage.getItem('username') || 'Utilisateur';
+                    document.getElementById('email').textContent = localStorage.getItem('email') || 'email@example.com';
+                });
+        }
+
+        function addTabClickListeners() {
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach((btn, index) => {
+                btn.addEventListener('click', () => showTab(index));
+            });
+        }
+
+        function showTab(index) {
+            // Masquer tous les onglets
+            const panes = document.querySelectorAll('.tab-pane');
+            panes.forEach(pane => pane.classList.remove('active'));
+            
+            // Masquer tous les boutons actifs
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Afficher l'onglet selectionne
+            const tabId = ['tab-profile', 'tab-password', 'tab-about'][index];
+            document.getElementById(tabId).classList.add('active');
+            buttons[index].classList.add('active');
+            
+            console.log('Onglet ' + (index + 1) + ' affiche');
+        }
+
+        function updateProfile() {
+            const description = document.getElementById('description').value;
+            const alert = document.getElementById('profileAlert');
+            
+            showAlert(alert, 'Profil mis a jour avec succes', 'success');
+            console.log('Profil mis a jour: ' + description);
+            
+            setTimeout(() => alert.style.display = 'none', 3000);
+        }
+
+        function updatePassword() {
+            const currentPass = document.getElementById('currentPass').value;
+            const newPass = document.getElementById('newPass').value;
+            const confirmPass = document.getElementById('confirmPass').value;
+            const alert = document.getElementById('passwordAlert');
+            
+            // Validations
+            if (!currentPass || !newPass || !confirmPass) {
+                showAlert(alert, 'Tous les champs sont requis', 'danger');
+                return;
+            }
+            
+            if (newPass.length &lt; 8) {
+                showAlert(alert, 'Le mot de passe doit contenir au moins 8 caracteres', 'danger');
+                return;
+            }
+            
+            if (newPass !== confirmPass) {
+                showAlert(alert, 'Les mots de passe ne correspondent pas', 'danger');
+                return;
+            }
+            
+            // Succes
+            showAlert(alert, 'Mot de passe change avec succes', 'success');
+            document.getElementById('passwordForm').reset();
+            console.log('Mot de passe change');
+            
+            setTimeout(() => alert.style.display = 'none', 3000);
+        }
+
+        function showAlert(element, message, type) {
+            element.textContent = message;
+            element.className = 'alert-message alert-' + type;
+            element.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

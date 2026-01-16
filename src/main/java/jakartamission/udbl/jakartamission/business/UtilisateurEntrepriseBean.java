@@ -3,7 +3,6 @@ package jakartamission.udbl.jakartamission.business;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import jakartamission.udbl.jakartamission.entities.User;
 import org.mindrot.jbcrypt.BCrypt;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
  * Fournit les opérations CRUD (Create, Read, Update, Delete)
  */
 @Stateless
-@Transactional
 public class UtilisateurEntrepriseBean {
 
     /**
@@ -100,12 +98,17 @@ public class UtilisateurEntrepriseBean {
      */
     public User obtenirUtilisateurParEmail(String email) {
         try {
-            return em.createQuery(
+            System.out.println("[BEAN] obtenirUtilisateurParEmail() - Recherche: " + email);
+            User result = em.createQuery(
                     "SELECT u FROM User u WHERE LOWER(u.email) = LOWER(:email)",
                     User.class)
                     .setParameter("email", email)
                     .getSingleResult();
+            System.out.println("[BEAN] User trouvé: " + result.getUsername());
+            return result;
         } catch (Exception e) {
+            System.out.println(
+                    "[BEAN] User NOT found - Exception: " + e.getClass().getSimpleName() + " - " + e.getMessage());
             return null;
         }
     }
@@ -230,5 +233,32 @@ public class UtilisateurEntrepriseBean {
 
         // Créer et sauvegarder l'utilisateur
         return creerUtilisateur(username, email, password, description);
+    }
+
+    /**
+     * Authentifier un utilisateur avec son email et son mot de passe
+     *
+     * @param email    L'email de l'utilisateur
+     * @param password Le mot de passe en clair
+     * @return L'utilisateur authentifié, ou null si l'authentification échoue
+     */
+    public User authentifier(String email, String password) {
+        System.out.println("[BEAN] authentifier() - Recherche utilisateur avec email: " + email);
+
+        // Récupérer l'utilisateur par son email
+        User user = obtenirUtilisateurParEmail(email);
+        System.out.println("[BEAN] Utilisateur trouvé: " + (user != null ? user.getUsername() : "null"));
+
+        // Vérifier que l'utilisateur existe et que le mot de passe est correct
+        if (user != null) {
+            boolean passwordMatch = verifierMotDePasse(password, user.getPassword());
+            System.out.println("[BEAN] Vérification mot de passe: " + (passwordMatch ? "CORRECT" : "INCORRECT"));
+
+            if (passwordMatch) {
+                return user;
+            }
+        }
+
+        return null;
     }
 }

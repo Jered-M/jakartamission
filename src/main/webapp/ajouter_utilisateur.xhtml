@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="jakarta.faces.core">
+      xmlns:h="https://jakarta.ee/ns/jsf/html"
+      xmlns:f="https://jakarta.ee/ns/jsf/core">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -294,10 +294,9 @@
         <!-- Formulaire -->
         <div class="signup-body">
             <h:form>
-                <!-- Messages globaux -->
-                <h:messages globalOnly="true" 
-                            layout="table" 
-                            errorClass="alert alert-danger" 
+                <!-- Messages -->
+                <h:messages layout="table"
+                            errorClass="alert alert-danger"
                             infoClass="alert alert-success"
                             warningClass="alert alert-warning" />
 
@@ -328,7 +327,7 @@
                     </label>
                     <div class="password-wrapper">
                         <h:inputSecret id="password" value="#{utilisateurBean.password}"
-                                       placeholder="Min. 1 majuscule, 1 chiffre, 1 caractère spécial"
+                                       placeholder="Min. 1 majuscule, 1 chiffre"
                                        style="padding-right: 35px;"/>
                         <button type="button" class="password-toggle" onclick="togglePasswordVisibility(this)" title="Afficher/Masquer">
                             <i class="fas fa-eye"></i>
@@ -336,8 +335,8 @@
                     </div>
                     <h:message for="password" styleClass="error-message" />
                     <div class="password-strength">
-                        <i class="fas fa-info-circle"></i> 
-                        Minimum : 1 majuscule, 1 chiffre, 1 caractère spécial (@, $, !, %, *, ?, &amp;)
+                        <i class="fas fa-info-circle"></i>
+                        Minimum : 1 majuscule, 1 chiffre
                     </div>
                 </div>
 
@@ -367,7 +366,7 @@
                 </div>
 
                 <!-- Bouton de soumission -->
-                <h:commandButton value="Créer mon compte" action="#{utilisateurBean.ajouterUtilisateur}"
+                <h:commandButton value="Créer mon compte" action="#{utilisateurBean.ajouterUtilisateur()}"
                                  styleClass="btn-submit" />
 
                 <!-- Lien retour -->

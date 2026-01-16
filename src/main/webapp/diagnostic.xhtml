@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="https://jakarta.ee/ns/jsf/html"
+      xmlns:f="https://jakarta.ee/ns/jsf/core">
+<head>
+    <title>Diagnostic Formulaire</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+</head>
+<body class="p-5">
+    <div class="container">
+        <h1>Diagnostic des Beans JSF</h1>
+        <hr/>
+        
+        <h2>1. Bean WelcomeBean</h2>
+        <p>Email du bean: <strong>#{welcomeBean.email != null ? welcomeBean.email : '(vide)'}</strong></p>
+        <p>Bean existe: <strong>#{welcomeBean != null ? '✅ OUI' : '❌ NON'}</strong></p>
+        
+        <h2>2. Bean UtilisateurBean</h2>
+        <p>Username du bean: <strong>#{utilisateurBean.username != null ? utilisateurBean.username : '(vide)'}</strong></p>
+        <p>Email du bean: <strong>#{utilisateurBean.email != null ? utilisateurBean.email : '(vide)'}</strong></p>
+        <p>Bean existe: <strong>#{utilisateurBean != null ? '✅ OUI' : '❌ NON'}</strong></p>
+        
+        <hr/>
+        
+        <h2>3. Test Formulaire Simple</h2>
+        <h:form>
+            <div class="mb-3">
+                <label>Tester UtilisateurBean:</label>
+                <h:inputText value="#{utilisateurBean.username}" placeholder="Nom d'utilisateur" styleClass="form-control"/>
+            </div>
+            <h:commandButton value="Tester" action="#{utilisateurBean.ajouterUtilisateur()}" styleClass="btn btn-primary"/>
+        </h:form>
+        
+        <hr/>
+        <a href="index.xhtml" class="btn btn-secondary">Retour Accueil</a>
+        <a href="ajouter_utilisateur.xhtml" class="btn btn-warning">Aller à Créer un compte</a>
+    </div>
+</body>
+</html>

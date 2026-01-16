@@ -5,7 +5,6 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.validation.constraints.*;
 import jakartamission.udbl.jakartamission.business.UtilisateurEntrepriseBean;
 import java.io.Serializable;
 
@@ -18,26 +17,15 @@ public class UtilisateurBean implements Serializable {
     @Inject
     private UtilisateurEntrepriseBean utilisateurEntrepriseBean;
 
-    @NotBlank(message = "Le nom d'utilisateur est obligatoire")
-    @Size(min = 3, max = 50, message = "Le nom d'utilisateur doit avoir entre 3 et 50 caractères")
     private String username;
-
-    @NotBlank(message = "L'email est obligatoire")
-    @Email(message = "L'email doit être valide")
     private String email;
-
-    @NotBlank(message = "Le mot de passe est obligatoire")
-    @Size(min = 6, message = "Le mot de passe doit contenir au moins 6 caractères")
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$", message = "Le mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial")
     private String password;
-
-    @NotBlank(message = "Veuillez confirmer votre mot de passe")
     private String confirmPassword;
-
     private String description;
 
     // Constructeurs
     public UtilisateurBean() {
+        System.out.println("[UtilisateurBean] Constructeur appelé");
     }
 
     // Getters et Setters
@@ -82,55 +70,91 @@ public class UtilisateurBean implements Serializable {
     }
 
     // Méthode pour ajouter un utilisateur
-    public void ajouterUtilisateur() {
+    public String ajouterUtilisateur() {
+        System.out.println("\n========== CRÉATION COMPTE ==========");
+        System.out.println("[DEBUG] ajouterUtilisateur() appelée");
+        System.out.println("[DEBUG] Username: '" + username + "'");
+        System.out.println("[DEBUG] Email: '" + email + "'");
+
         FacesContext context = FacesContext.getCurrentInstance();
 
         // Normaliser l'email pour la vérification
-        String emailNormalized = email.trim().toLowerCase();
+        String emailNormalized = email != null ? email.trim().toLowerCase() : "";
 
         // Vérifier si les mots de passe correspondent
-        if (!password.equals(confirmPassword)) {
+        if (password == null || !password.equals(confirmPassword)) {
+            System.out.println("[ERROR] Les mots de passe ne correspondent pas");
             context.addMessage(null, new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,
                     "Les mots de passe ne correspondent pas",
                     null));
-            return;
+            System.out.println("========== FIN CRÉATION COMPTE ==========\n");
+            return null;
         }
 
-        // Vérifier si le nom d'utilisateur existe déjà
-        if (utilisateurEntrepriseBean.usernameExiste(username)) {
+        // Vérifier si l'utilisateur existe déjà
+        if (utilisateurEntrepriseBean != null && utilisateurEntrepriseBean.usernameExiste(username)) {
+            System.out.println("[ERROR] Nom d'utilisateur déjà existant");
             context.addMessage(null, new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,
                     "Ce nom d'utilisateur existe déjà. Veuillez en choisir un autre.",
                     null));
-            return;
+            System.out.println("========== FIN CRÉATION COMPTE ==========\n");
+            return null;
         }
 
         // Vérifier si l'email existe déjà (utiliser l'email normalisé)
-        if (utilisateurEntrepriseBean.emailExiste(emailNormalized)) {
+        if (utilisateurEntrepriseBean != null && utilisateurEntrepriseBean.emailExiste(emailNormalized)) {
+            System.out.println("[ERROR] Email déjà existant");
             context.addMessage(null, new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,
                     "Cette adresse email existe déjà. Veuillez en utiliser une autre.",
                     null));
-            return;
+            System.out.println("========== FIN CRÉATION COMPTE ==========\n");
+            return null;
         }
 
-        // Ajouter l'utilisateur avec mot de passe haché
-        utilisateurEntrepriseBean.creerUtilisateur(username, emailNormalized, password, description);
+        try {
+            // Ajouter l'utilisateur avec mot de passe haché
+            if (utilisateurEntrepriseBean != null) {
+                utilisateurEntrepriseBean.creerUtilisateur(username, emailNormalized, password, description);
+                System.out.println("[SUCCESS] Utilisateur créé avec succès");
 
-        // Afficher le message de succès
-        context.addMessage(null, new FacesMessage(
-                FacesMessage.SEVERITY_INFO,
-                "Utilisateur ajouté avec succès !",
-                null));
+                // Afficher le message de succès
+                context.addMessage(null, new FacesMessage(
+                        FacesMessage.SEVERITY_INFO,
+                        "Utilisateur ajouté avec succès !",
+                        null));
 
-        System.out.println("Utilisateur ajouté : " + username + " - " + emailNormalized);
+                System.out.println("Utilisateur ajouté : " + username + " - " + emailNormalized);
 
-        // Réinitialisation des champs
-        username = "";
-        email = "";
-        password = "";
-        confirmPassword = "";
-        description = "";
+                // Réinitialisation des champs
+                username = "";
+                email = "";
+                password = "";
+                confirmPassword = "";
+                description = "";
+
+                System.out.println("[DEBUG] Redirection vers home.xhtml");
+                System.out.println("========== FIN CRÉATION COMPTE ==========\n");
+                return "home";
+            } else {
+                System.out.println("[ERROR] utilisateurEntrepriseBean est NULL");
+                context.addMessage(null, new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR,
+                        "Erreur: Bean métier non disponible",
+                        null));
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("[ERROR] Exception: " + e.getMessage());
+            e.printStackTrace();
+            context.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,
+                    "Erreur: " + e.getMessage(),
+                    null));
+            System.out.println("========== FIN CRÉATION COMPTE ==========\n");
+            return null;
+        }
     }
 }

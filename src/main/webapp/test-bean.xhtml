@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="https://jakarta.ee/ns/jsf/html"
+      xmlns:f="https://jakarta.ee/ns/jsf/core">
+<head>
+    <title>Test Bean</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-box {
+            border: 2px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test des Beans JSF</h1>
+        <hr/>
+        
+        <h2>1️⃣ Test WelcomeBean</h2>
+        <div class="test-box #{welcomeBean != null ? 'success' : 'error'}">
+            <p><strong>Bean trouvé ?</strong> #{welcomeBean != null ? '✅ OUI' : '❌ NON'}</p>
+            #{welcomeBean != null ? '<p>Email du bean: ' + welcomeBean.email + '</p>' : ''}
+        </div>
+
+        <h2>2️⃣ Test UtilisateurBean</h2>
+        <div class="test-box #{utilisateurBean != null ? 'success' : 'error'}">
+            <p><strong>Bean trouvé ?</strong> #{utilisateurBean != null ? '✅ OUI' : '❌ NON'}</p>
+            #{utilisateurBean != null ? '<p>Username du bean: ' + utilisateurBean.username + '</p>' : ''}
+        </div>
+
+        <h2>3️⃣ Formulaire de Test</h2>
+        <h:form>
+            <div>
+                <label>Tester WelcomeBean:</label>
+                <h:inputText value="#{welcomeBean.email}" placeholder="Email"/>
+                <h:commandButton value="Tester" action="#{welcomeBean.sAuthentifier()}" style="margin-left: 10px;"/>
+            </div>
+        </h:form>
+
+        <hr/>
+        <p><a href="index.xhtml">← Retour à index.xhtml</a></p>
+    </div>
+</body>
+</html>
