@@ -2,9 +2,9 @@
 <!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
 <resources>
     <jdbc-connection-pool name="jakartamission_pool" datasource-classname="org.apache.derby.jdbc.EmbeddedDataSource" res-type="javax.sql.DataSource">
-        <property name="databaseName" value="C:/glassfish-7.0.24/glassfish7/glassfish/databases/jakartamission"/>
-        <property name="user" value="APP"/>
-        <property name="password" value="APP"/>
+        <property name="databaseName" value="${glassfish.database.path}"/>
+        <property name="user" value="${db.user}"/>
+        <property name="password" value="${db.password}"/>
     </jdbc-connection-pool>
     <jdbc-resource jndi-name="jdbc/jakartamission" pool-name="jakartamission_pool"/>
 </resources>

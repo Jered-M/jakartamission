@@ -75,46 +75,27 @@ public class WelcomeBean implements Serializable {
      * @return "home" si l'authentification réussit, "index" sinon
      */
     public String sAuthentifier() {
-        System.out.println("\n========== DEBUG AUTHENTIFICATION ==========");
-        System.out.println("[DEBUG] sAuthentifier() appelée");
-        System.out.println("[DEBUG] Email reçu: '" + email + "'");
-        System.out.println("[DEBUG] Password reçu: " + (password != null ? "***" : "null"));
-        System.out.println(
-                "[DEBUG] utilisateurEntrepriseBean: " + (utilisateurEntrepriseBean != null ? "INJECTE" : "NULL!!!"));
-        System.out.println("[DEBUG] sessionManager: " + (sessionManager != null ? "INJECTE" : "NULL!!!"));
-
         // Vérifier que les champs ne sont pas vides
         if (email == null || email.trim().isEmpty() ||
                 password == null || password.trim().isEmpty()) {
-            System.out.println("[ERROR] Champs vides !");
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(
                             FacesMessage.SEVERITY_ERROR,
                             "Erreur",
                             "Veuillez remplir tous les champs"));
-            System.out.println("========== FIN DEBUG ==========\n");
             return "index?faces-redirect=true";
         }
 
         try {
             // Appeler la méthode d'authentification du bean métier
-            System.out.println("[DEBUG] Appel authentifier() avec email: " + email);
             User user = utilisateurEntrepriseBean.authentifier(email, password);
-            System.out.println("[DEBUG] Résultat authentifier: "
-                    + (user != null ? "SUCCES - User: " + user.getUsername() : "ECHEC - User null"));
 
             if (user != null) {
                 // Authentification réussie
                 // Créer une session pour l'utilisateur via le SessionManager
-                System.out.println("[SUCCESS] Authentification réussie pour: " + user.getUsername());
                 sessionManager.createSession("user", user.getUsername());
                 sessionManager.createSession("userId", String.valueOf(user.getId()));
                 sessionManager.createSession("email", user.getEmail());
-
-                System.out.println("[DEBUG] Session créée avec:");
-                System.out.println("  - user: " + user.getUsername());
-                System.out.println("  - userId: " + user.getId());
-                System.out.println("  - email: " + user.getEmail());
 
                 // Réinitialiser les champs
                 email = null;
@@ -126,31 +107,24 @@ public class WelcomeBean implements Serializable {
                                 "Succès",
                                 "Connecté avec succès"));
 
-                System.out.println("[DEBUG] Redirection vers home.xhtml");
-                System.out.println("========== FIN DEBUG ==========\n");
                 return "home?faces-redirect=true";
             } else {
                 // Authentification échouée
-                System.out.println("[ERROR] Authentification échouée - Email ou mot de passe incorrect");
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(
                                 FacesMessage.SEVERITY_ERROR,
                                 "Erreur",
                                 "Email ou mot de passe incorrect"));
                 password = null; // Réinitialiser le mot de passe
-                System.out.println("========== FIN DEBUG ==========\n");
                 return "index?faces-redirect=true";
             }
         } catch (Exception e) {
-            System.out.println("[ERROR] Exception: " + e.getMessage());
-            System.out.println("[ERROR] Cause: " + (e.getCause() != null ? e.getCause().getMessage() : "N/A"));
-            e.printStackTrace();
+            System.err.println("[ERROR] Erreur lors de l'authentification");
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(
                             FacesMessage.SEVERITY_ERROR,
                             "Erreur",
-                            "Une erreur est survenue: " + e.getMessage()));
-            System.out.println("========== FIN DEBUG ==========\n");
+                            "Une erreur est survenue lors de l'authentification. Veuillez réessayer."));
             return "index?faces-redirect=true";
         }
     }

@@ -243,22 +243,61 @@ public class UtilisateurEntrepriseBean {
      * @return L'utilisateur authentifié, ou null si l'authentification échoue
      */
     public User authentifier(String email, String password) {
-        System.out.println("[BEAN] authentifier() - Recherche utilisateur avec email: " + email);
+        System.out.println("[BEAN] authentifier() - Tentative d'authentification");
 
         // Récupérer l'utilisateur par son email
         User user = obtenirUtilisateurParEmail(email);
-        System.out.println("[BEAN] Utilisateur trouvé: " + (user != null ? user.getUsername() : "null"));
-
+        
         // Vérifier que l'utilisateur existe et que le mot de passe est correct
         if (user != null) {
             boolean passwordMatch = verifierMotDePasse(password, user.getPassword());
-            System.out.println("[BEAN] Vérification mot de passe: " + (passwordMatch ? "CORRECT" : "INCORRECT"));
 
             if (passwordMatch) {
+                System.out.println("[BEAN] Authentification réussie");
                 return user;
             }
         }
 
+        System.out.println("[BEAN] Authentification échouée - identifiants invalides");
         return null;
+    }
+
+    /**
+     * UPDATE : Mettre à jour le mot de passe d'un utilisateur
+     *
+     * @param userId    L'ID de l'utilisateur
+     * @param newPassword Le nouveau mot de passe en clair
+     * @return true si la mise à jour est réussie, false sinon
+     */
+    public boolean changerMotDePasse(Long userId, String newPassword) {
+        try {
+            User user = obtenirUtilisateurParId(userId);
+            if (user == null) {
+                return false;
+            }
+            
+            // Hacher le nouveau mot de passe
+            String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+            user.setPassword(hashedPassword);
+            
+            em.merge(user);
+            em.flush();
+            
+            System.out.println("[BEAN] Mot de passe mis à jour avec succès pour l'utilisateur ID: " + userId);
+            return true;
+        } catch (Exception e) {
+            System.err.println("[ERROR] Erreur lors de la mise à jour du mot de passe: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * UPDATE : Mettre à jour un utilisateur existant
+     *
+     * @param user L'utilisateur à mettre à jour
+     * @return L'utilisateur mis à jour
+     */
+    public User mettreAJourUtilisateur(User user) {
+        return em.merge(user);
     }
 }
